@@ -46,7 +46,7 @@ function afficherPanier() {
                     let pColor = document.createElement("p")
                     pColor.textContent = canape.color
                     let pPrice = document.createElement("p")
-                    pPrice.textContent = produitApi.price
+                    pPrice.textContent = produitApi.price + " €"
                     //créer div avec les éléments correspondant
                     let divSetting = document.createElement("div")
                     divSetting.className = "cart__item__content__settings"
@@ -72,7 +72,10 @@ function afficherPanier() {
                                 changeQtProduit.qt = input.value;
                             }
                         })
+                        qtProduit()
+                        total()
                         //sauvegarde des modifications des QT produit du panier
+
                         window.localStorage.setItem("panier", JSON.stringify(panier));
                     })
                     //créer div avec les éléments correspondant
@@ -95,6 +98,8 @@ function afficherPanier() {
                             }
                             //récupérer message panier vide
                         })
+                        qtProduit()
+                        total()
                     })
                     //ajoute un nœud à la fin de la liste des enfants d'un nœud parent spécifié
                     section.appendChild(article)
@@ -119,13 +124,51 @@ afficherPanier();
 //---------------------------------
 //ajout sommes des produits du panier
 //---------------------------------
-let quantityProduit = 0;
-for (let id in panier) {
-    quantityProduit += parseInt(panier[id].qt);
-    document.querySelector("#totalQuantity").textContent = quantityProduit;
-    console.log(quantityProduit);
+function qtProduit() {
+    let quantityProduit = 0;
+    for (let id in panier) {
+        quantityProduit += parseInt(panier[id].qt);
+        document.querySelector("#totalQuantity").textContent = quantityProduit;
+    }
 }
-//---------------------------------
-//ajout sommes des prix du panier
-//---------------------------------
-let prixProduit = 0;
+qtProduit() 
+total()
+//----------------------
+//affichage prix total
+//----------------------
+function total() {
+    fetch('http://localhost:3000/api/products')
+        .then(reponse => reponse.json()
+            .then(data => {
+                // forEach est une fonction qui te permet de parcourir un tableau
+                // parcourir = boucler sur chaque élément du tableau
+                let totalPrix = 0; // on initialise notre variable
+                data.forEach(canape => {
+                    const panierFiltre = panier.filter((el) => {
+                        return el.id == canape._id;
+                    });
+                    if (panierFiltre.length > 0) {
+                        const canapeDuPanier = panierFiltre[0];
+                        totalPrix += (canape.price * parseInt(canapeDuPanier.qt));
+                    }
+                })
+                // tu affiche ta variable
+                document.querySelector("#totalPrice").textContent = totalPrix; 
+            })
+        )
+}
+total()
+qtProduit()
+console.log(panier);
+
+// Il nous faudrait un tableau composé des identifiants des produits du panier
+
+// créer un tableau de couverts
+
+
+// Filtrer les couverts pour ne récuéprer que les fourchettes
+
+
+// Parcourir tous les couverts et les afficher dans la console
+
+
