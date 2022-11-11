@@ -1,16 +1,17 @@
-// récupération des paramètres de l'URL (depuis document.location)
+//---------------------------------
+//récupération des paramètres de l'URL (depuis document.location) 
+//---------------------------------
+// document location renvoie un objet qui contient des informations sur l'URL du document et fournit
 let params = new URL(document.location).searchParams;
 // on récupère la valeur du paramètre 'id' depuis les paramètres de l'URL,
 //on la stocke dans la variable idProduit
 const idProduit = params.get("id");
-// donc à partir de là on sait que la variable idProduit contient
-// l'identifiant du produit que l'on doit afficher
+/* donc à partir de là on sait que la variable 'idProduit' contient
+l'identifiant du produit que l'on doit afficher*/
 let produit = null;
 /*Maintenant qu'on connait l'identifiant du produit à afficher (idProduit),
-nous devons demander à une source de vérité (le serveur)
- de nous donner les attributs du produit.
+nous devons demander à une source de vérité (le serveur) de nous donner les attributs du produit.
  Pour cela nous envoyons donc une requête HTTP au serveur (via la fonction fetch(url_du_serveur) */
-
 //async function définit une fonction qui renvoie un objet  
 const fetchProduit = async function () {
     //récupération de l'idProduit avec l'url 
@@ -19,11 +20,14 @@ const fetchProduit = async function () {
         .then(function (res) {
             return res.json();
         })
+        //retourne la réponse en tant qu’objet FormData
         .then(function (data) {
             produit = data;
         });
 };
-//affichage du produit
+//---------------------------------
+//affichage du produit 
+//---------------------------------
 const afficherLeProduit = async function () {
     //récupération des produits
     await fetchProduit();
@@ -37,9 +41,12 @@ const afficherLeProduit = async function () {
     });
 };
 afficherLeProduit();
-
-/*--------------ajout au panier au click--------------*/
-
+//---------------------------------
+//affichage du produit fin
+//---------------------------------
+//---------------------------------
+//ajout au click 
+//---------------------------------
 //récupérer l'id du bouton(#addToCart), créer l'événement click
 const bouton = document.querySelector('#addToCart').addEventListener('click', function (event) {
     //récupérer la valeur des champs colors et la valeur de l'id quantity
@@ -58,7 +65,6 @@ const bouton = document.querySelector('#addToCart').addEventListener('click', fu
         if (panier == null) {
             //alors le tableau reste vide
             panier = []
-            //
             //créer la variable "productToLocalStorage" avec les objets id, color, qt
             let productToLocalStorage = {
                 id: idProduit,
@@ -94,10 +100,11 @@ const bouton = document.querySelector('#addToCart').addEventListener('click', fu
                     //ajoute des éléments au tableau
                     panier.push(productToLocalStorage)
                 }
-            
         }
         //méthode convertit une valeur JavaScript en chaîne JSON
         window.localStorage.setItem("panier", JSON.stringify(panier))
-
     }
 });
+//---------------------------------
+//ajout au click fin
+//---------------------------------
