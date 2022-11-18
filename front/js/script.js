@@ -1,5 +1,5 @@
 //---------------------------------
-//fetch récupére les données de l'api sur le serveur 3000
+//fetch permet de récupérer les données de l'API du "Catalogue de canapés"
 //---------------------------------
 fetch('http://localhost:3000/api/products')
     //la promesse a pour réponse (transforme en JSON)
@@ -7,16 +7,18 @@ fetch('http://localhost:3000/api/products')
         //analyse la réponse en JSON
         return res.json();
     })
-    //retourne la réponse en tant qu’objet FormData
+    //retourne la réponse en tant qu’objet Data (contenant tous les canapés)
     .then(function (data) {
-        console.log(data);
-        //sélection élément HTML ou afficher produits
-        let section = document.querySelector("#items")
-        // parcour le tableau data et on donne une key à chaque élément 'canape'
+        /*getElementById renvoie un objet représentant l'élément dont la propriété "id" correspond 
+        à la chaîne de caractères spécifiée (section du fichier index.html)*/
+        let section = document.getElementById("items");
+        //forEach permet d'exécuter une fonction donnée sur chaque élément du tableau.
         data.forEach(function (canape) {
-//---------------------------------
-//création des éléments html
-//---------------------------------
+            //---------------------------------
+            //création des éléments HTML
+            //---------------------------------
+            /*création des éléments HTML avec leur identifiant "id ou class" 
+            et on leur donne les attributs correspondant*/
             let a = document.createElement('a')
             a.href = "./product.html?id=" + canape._id
             let article = document.createElement("article")
