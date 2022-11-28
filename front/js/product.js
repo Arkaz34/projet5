@@ -61,12 +61,14 @@ const bouton = document.querySelector('#addToCart').addEventListener('click', fu
     //récupérer la valeur des champs "colors" et de l'id "quantity"
     //si la valeur de la couleur est égale à rien ou la valuer de la quantité est égale à 0
     if (document.getElementById("colors").value == "" || document.getElementById("quantity").value <= 0) {
-        //on envoie un message d'alert pour indiquer à l'utilisateur que la couleur et ou la qt n'est pas selectionner
+        //on envoie un message d'alert pour indiquer à l'utilisateur que la couleur et ou la qt n'est pas selectionné
         alert("Veuilliez choisir une couleur et une quantité");
         /*l'évènement n'est pas explicitement géré,
         l'action par défaut ne devrait pas être exécutée comme elle l'est normalement.*/
         event.preventDefault();
     }
+    if (document.getElementById("quantity").value >= 101) { 
+}
     //si la couleur et la quantité sont sélectionnés alors tu exécutes cette condition
     //sinon
     else {

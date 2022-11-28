@@ -118,6 +118,11 @@ function afficherPanier() {
                         qtProduit()
                         window.localStorage.setItem("panier", JSON.stringify(panier));
                     })
+                    // function produitMax() {
+                    //     if (condition) {
+                            
+                    //     }
+                    // }
                     //---------------------------------
                     //suppression des produits du panier fin
                     //---------------------------------

@@ -26,17 +26,17 @@ fetch('http://localhost:3000/api/products')
             img.src = canape.imageUrl
             img.alt = canape.altTxt
             let h3 = document.createElement("h3")
-            h3.class = "productName"
+            h3.className = "productName"
             h3.textContent = canape.name
             let p = document.createElement("p")
-            p.class = "productDescription"
+            p.className = "productDescription"
             p.textContent = canape.description
             //ajoute un nœud à la fin de la liste des enfants d'un nœud parent spécifié
-            article.appendChild(p)
+            a.appendChild(article)
+            section.appendChild(a)  
             article.appendChild(img)
             article.appendChild(h3)
-            a.appendChild(article)
-            section.appendChild(a)
+            article.appendChild(p)
         });
     })
 //---------------------------------
