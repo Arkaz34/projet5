@@ -6,10 +6,10 @@ let params = new URL(document.location).searchParams;
 /*on récupère la valeur du paramètre 'id' depuis les paramètres de l'URL,
 on la stocke dans la constante idProduit*/
 const idProduit = params.get("id");
-/* donc à partir de là on sait que la variable 'idProduit' contient
+/* donc à partir de là, on sait que la variable 'idProduit' contient
 l'identifiant du produit que l'on doit afficher*/
 let produit = null;
-/*Maintenant qu'on connait l'identifiant du produit à afficher (idProduit),
+/*Maintenant que l'on connaît l'identifiant du produit à afficher (idProduit),
 nous devons demander à une source de vérité (le serveur) de nous donner les attributs du produit.
  Pour cela nous envoyons donc une requête HTTP au serveur (via la fonction fetch(url_du_serveur) */
 //async function définit une fonction qui renvoie un objet  
@@ -67,8 +67,6 @@ const bouton = document.querySelector('#addToCart').addEventListener('click', fu
         l'action par défaut ne devrait pas être exécutée comme elle l'est normalement.*/
         event.preventDefault();
     }
-    if (document.getElementById("quantity").value >= 101) { 
-}
     //si la couleur et la quantité sont sélectionnés alors tu exécutes cette condition
     //sinon
     else {
@@ -97,10 +95,14 @@ const bouton = document.querySelector('#addToCart').addEventListener('click', fu
             panier.forEach(function (value, index) {
                 //vérifie si le produit ou la couleur est indentique et l'ajoute au panier.
                 if (value.id == idProduit && value.color == document.getElementById("colors").value) {
+                    value.qt = parseInt(value.qt) + parseInt(document.getElementById("quantity").value);
+                    if(value.qt >= 101){
+                        alert('Impossible de mettre plus de 100 canapés identique dans le panier !')
+                        value.qt = 100;
+                    }
                     doublon = true;
                     /*La fonction parseInt() analyse une chaîne de caractère fournie en argument et renvoie un entier exprimé
                     dans une base donnée. Ici celà permet de définir la valeur de base et d'additionner la quantité demandée */
-                    value.qt = parseInt(value.qt) + parseInt(document.getElementById("quantity").value);
                     panier[index] = value;
                 }
             });

@@ -78,6 +78,10 @@ function afficherPanier() {
                             jusqu'à trouver un nœud qui correspond aux sélecteurs exprimés ".cart_item"*/
                             /*si  l'id et la couleur sont identique alors on garde cette valeur et on ajoute la valeur à la quantité*/
                             if (input.closest(".cart__item").dataset.id == changeQtProduit.id && input.closest(".cart__item").dataset.color == changeQtProduit.color) {
+                                if(input.value >= 101){
+                                    alert('Impossible de commander plus de 100 produits identique !')
+                                    input.value = 100;
+                                }
                                 changeQtProduit.qt = input.value;
                             }
                         })
@@ -118,11 +122,7 @@ function afficherPanier() {
                         qtProduit()
                         window.localStorage.setItem("panier", JSON.stringify(panier));
                     })
-                    // function produitMax() {
-                    //     if (condition) {
-                            
-                    //     }
-                    // }
+                    // 
                     //---------------------------------
                     //suppression des produits du panier fin
                     //---------------------------------
@@ -259,8 +259,8 @@ btnEnvoyerCommande.addEventListener("click", function (e) {
         document.getElementById("emailErrorMsg").textContent = "Veuillez indiquer une adresse Email valide !"
     };
     //si panier "localStorage" et vide, message d'erreur "Aucun produit sélectionné"
-    if (panier == "") {
-        alert("Aucun produit sélectionné")
+    if (panier == "" || valideForm == false) {
+        alert("Aucun produit sélectionné où formulaire non valide !")
     } else {
         //création tableau products
         let products = []
@@ -291,10 +291,7 @@ btnEnvoyerCommande.addEventListener("click", function (e) {
                                 window.location.href = 'confirmation.html?id=' + data.orderId;
                             })
                     })
-            } else {
-                // si le formulaire n'est pas valide alors "alert"
-                alert("Formulaire non valide !")
-            }
+            } 
         })
     }
 });

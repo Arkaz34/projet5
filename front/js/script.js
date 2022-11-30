@@ -1,8 +1,8 @@
 //---------------------------------
-//fetch permet de récupérer les données de l'API du "Catalogue de canapés"
+//fetch permet de récupérer les données de l'API du "Catalogue de canapés."
 //---------------------------------
 fetch('http://localhost:3000/api/products')
-    //la promesse a pour réponse (transforme en JSON qui est un langage léger d’échange de données textuelles.)
+    //la promesse a pour réponse (transformes en JSON qui est un langage léger d’échange de données textuelles.)
     .then(function (res) {
         //analyse la réponse en JSON
         return res.json();
@@ -17,7 +17,7 @@ fetch('http://localhost:3000/api/products')
             //---------------------------------
             //création des éléments HTML
             //---------------------------------
-            /*création des éléments HTML avec leur identifiant "id ou class" 
+            /*création des éléments HTML, avec leur identifiant "id ou class" 
             et on leur donne les attributs correspondant*/
             let a = document.createElement('a')
             a.href = "./product.html?id=" + canape._id
